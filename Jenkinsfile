@@ -3,13 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        echo 'deploying...'
         sh 'go run epamlabs.go'
-      }
-    }
-
-    stage('Deploy') {
-      steps {
-        echo 'Deployed EPAM!'
       }
     }
 
