@@ -1,27 +1,40 @@
+#!/usr/bin/env groovy
 pipeline {
-     agent { any } 
+  agent any
 
-    stages {
-        stage('Build') {   
-            steps {                                           
-                // Create our project directory.
-                sh 'cd epamlabs/CI/go-epamlabs'
-                
-                // Build the app.
-                sh 'go build'
-            }            
-        }
-
-        // Each "sh" line (shell command) is a step,
-        // so if anything fails, the pipeline stops.
-        stage('Test') {
-            steps {                                
-                // Remove cached test results.
-                sh 'go clean -cache'
-
-                // Run Unit Tests.
-                sh 'go test ./... -v'                                  
-            }
-        }           
+  stages {
+    stage("Build") {
+      steps {
+        sh 'mvn -v'
+      }
     }
-}   
+
+    stage("Testing") {
+      parallel {
+        stage("Unit Tests") {
+          agent { docker 'openjdk:7-jdk-alpine' }
+          steps {
+            sh 'java -version'
+          }
+        }
+        stage("Functional Tests") {
+          agent { docker 'openjdk:8-jdk-alpine' }
+          steps {
+            sh 'java -version'
+          }
+        }
+        stage("Integration Tests") {
+          steps {
+            sh 'java -version'
+          }
+        }
+      }
+    }
+
+    stage("Deploy") {
+      steps {
+        echo "Deploy!"
+      }
+    }
+  }
+}
