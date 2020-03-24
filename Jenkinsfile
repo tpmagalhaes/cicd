@@ -1,20 +1,30 @@
 pipeline {
-    agent any
-      
-    tools {
-       go "Go 1.10.2"
+    agent {
+        docker { image 'golang:1.9.2-stretch'}
     }
-    
+
     stages {
-        stage('Build Bin') {
-            steps {
-                sh 'build/build-bin.sh'
+        stage('Build'){
+            steps{
+                sh 'go get -u github.com/jstemmer/go-junit-report'
+                sh 'go build .'
             }
         }
-        stage('Build War') {
-            steps {
-                sh 'build/run-tests.sh'
+        stage('Test'){
+            steps{
+                sh 'go test -v 2>&1 | go-junit-report > report.xml'
             }
+        }
+        stage('Deploy'){
+            steps{
+                echo "Epam-Labs\nMakes me Happy\nAnd a little nervous - lol"
+            }
+        }
+    }
+    // Required to view our test results in the UI
+    post {
+        always {
+            junit 'report.xml'
         }
     }
 }
