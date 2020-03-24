@@ -12,7 +12,7 @@ pipeline {
     stage("Testing") {
       parallel {
         stage("Unit Tests") {
-          agent { docker 'openjdk:7-jdk-alpine' }
+          agent { docker 'openjdk:8-jdk-alpine' }
           steps {
             sh 'java -version'
           }
