@@ -1,13 +1,7 @@
 pipeline {
-  
-  agent {
-    docker {
-        image 'golang:latest'
-        label 'epam-labs'
-        args  '-v /tmp:/tmp'
-    }
-}       
-  }
+    agent { docker 'maven:3-alpine' } 
+         }
+     }
   stages {
     stage('Build') {
       steps {
