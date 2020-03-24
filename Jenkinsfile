@@ -1,19 +1,17 @@
-#!/usr/bin/env groovy
 pipeline {
   agent any
-
   stages {
-    stage("Build") {
+    stage('Build') {
       steps {
         sh 'go run epamlabs.go'
       }
     }
 
-    stage("Deploy") {
+    stage('Deploy') {
       steps {
-        
-        echo "Deployed EPAM!"
+        echo 'Deployed EPAM!'
       }
     }
+
   }
 }
