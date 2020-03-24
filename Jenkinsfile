@@ -5,14 +5,14 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        sh 'go build .'
+        sh 'go run epamlabs.go'
       }
     }
 
     stage("Deploy") {
       steps {
-        sh './epamlabs'
-        echo "Deploy!"
+        
+        echo "Deployed EPAM!"
       }
     }
   }
