@@ -5,34 +5,13 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        sh 'mvn -v'
-      }
-    }
-
-    stage("Testing") {
-      parallel {
-        stage("Unit Tests") {
-          agent { docker 'openjdk:8-jdk-alpine' }
-          steps {
-            sh 'java -version'
-          }
-        }
-        stage("Functional Tests") {
-          agent { docker 'openjdk:8-jdk-alpine' }
-          steps {
-            sh 'java -version'
-          }
-        }
-        stage("Integration Tests") {
-          steps {
-            sh 'java -version'
-          }
-        }
+        sh 'go build .'
       }
     }
 
     stage("Deploy") {
       steps {
+        sh './epamlabs'
         echo "Deploy!"
       }
     }
