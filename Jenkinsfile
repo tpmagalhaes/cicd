@@ -1,9 +1,12 @@
 pipeline {
-  agent any
+  
+  agent {
     docker {
-      image 'golang'
+        image 'golang:latest'
+        label 'epam-labs'
+        args  '-v /tmp:/tmp'
     }
-
+}       
   }
   stages {
     stage('Build') {
