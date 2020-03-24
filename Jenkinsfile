@@ -1,7 +1,7 @@
 pipeline {
   agent {
-    docker {
-      image 'golang'
+    node {
+      label 'node-1'
     }
 
   }
