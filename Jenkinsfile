@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo '''Epam-Labs
+        echo '''Epam-Labs-2020
 Makes me Happy
 And a little nervous - lol'''
       }
