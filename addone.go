@@ -1,7 +1,9 @@
 package main
 
-import "math"
-import "fmt"
+import (
+        "math"
+        "fmt"
+)
 
 func addone(x int) int {
 	x = x + 1
